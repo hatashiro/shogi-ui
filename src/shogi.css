@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Sawarabi+Mincho);
+
+.koma {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Sawarabi Mincho", serif;
+  font-weight: bold;
+  filter: drop-shadow(2px 2px 3px #666);
+  transition: transform .2s, filter .2s;
+}
+
+.koma.selected {
+  transform: translate(-2px, -5px);
+  filter: drop-shadow(4px 7px 6px #666);
+}

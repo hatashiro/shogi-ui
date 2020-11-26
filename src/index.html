@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="shogi.css" rel="stylesheet">
+<script src="shogi.js"></script>
+
+<style>
+.koma {
+  height: 80px;
+  margin: 15px;
+  cursor: pointer;
+}
+</style>
+
+<div id="koutei"></div>
+<div id="sentei"></div>
+
+<script>
+const $sentei = document.getElementById("sentei");
+const $koutei = document.getElementById("koutei");
+
+Shogi.komaTexts.forEach(komaText => {
+  $sentei.appendChild(Shogi.komaSVG(komaText, {sentei: true}));
+  $koutei.appendChild(Shogi.komaSVG(komaText, {sentei: false}));
+});
+
+document.querySelectorAll('svg').forEach($svg => {
+  $svg.addEventListener('mouseenter', () => $svg.classList.add('selected'));
+  $svg.addEventListener('mouseleave', () => $svg.classList.remove('selected'));
+});
+</script>
