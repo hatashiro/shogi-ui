@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Sawarabi+Mincho);
 
-.koma {
+.shogi__koma {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   font-family: "Sawarabi Mincho", serif;
@@ -9,7 +9,84 @@
   transition: transform .2s, filter .2s;
 }
 
-.koma.selected {
-  transform: translate(-2px, -5px);
-  filter: drop-shadow(4px 7px 6px #666);
+.shogi__koma.shogi__koma--selected {
+  transform: translate(-1px, -5px);
+  filter: drop-shadow(3px 7px 6px #666);
+}
+
+.shogi__board {
+  display: flex;
+  flex-direction: column;
+}
+
+.shogi__suji_text_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.shogi__suji_text,
+.shogi__dan_text {
+  font-family: "Sawarabi Mincho", serif;
+  text-align: center;
+}
+
+.shogi__suji_text {
+  height: 15px;
+  line-height: 15px;
+  font-size: 13px;
+  flex: 1;
+}
+
+.shogi__dan_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 15px;
+  font-size: 11px;
+}
+
+.shogi__board--no_text .shogi__suji_text,
+.shogi__board--no_text .shogi__dan_text {
+  display: none;
+}
+
+.shogi__board__dot {
+  width: 3px;
+  height: 3px;
+  margin: 0 -2px -2px -1px;
+  background-color: black;
+  z-index: 1;
+  align-self: flex-end;
+}
+
+.shogi__dan_row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.shogi__cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid black;
+  margin: 0 -1px -1px 0;
+  flex: 1;
+  background-color: rgb(255, 236, 190);
+}
+
+.shogi__dan_row:last-child .shogi__cell {
+  margin-bottom: 0;
+}
+
+.shogi__cell:last-child {
+  margin-right: 0;
+}
+
+.shogi__cell--highlighted {
+  background-color: #ff9879;
+}
+
+.shogi__cell .shogi__koma {
+  flex: .85;
 }

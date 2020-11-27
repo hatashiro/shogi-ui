@@ -5,7 +5,7 @@
 <script src="shogi.js"></script>
 
 <style>
-.koma {
+.shogi__koma {
   height: 80px;
   margin: 15px;
   cursor: pointer;
@@ -24,8 +24,9 @@ Shogi.komaTexts.forEach(komaText => {
   $koutei.appendChild(Shogi.komaSVG(komaText, {sentei: false}));
 });
 
+const selected = 'shogi__koma--selected';
 document.querySelectorAll('svg').forEach($svg => {
-  $svg.addEventListener('mouseenter', () => $svg.classList.add('selected'));
-  $svg.addEventListener('mouseleave', () => $svg.classList.remove('selected'));
+  $svg.addEventListener('mouseenter', () => $svg.classList.add(selected));
+  $svg.addEventListener('mouseleave', () => $svg.classList.remove(selected));
 });
 </script>

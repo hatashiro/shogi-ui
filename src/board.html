@@ -1,0 +1,78 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="shogi.css" rel="stylesheet">
+<script src="shogi.js"></script>
+
+<style>
+#app .shogi__board {
+  width: 320px;
+  height: 320px;
+  margin: 10px;
+}
+
+#app .shogi__koma {
+  cursor: pointer;
+}
+</style>
+
+<div id="app"></div>
+
+<script>
+const $app = document.querySelector('#app');
+
+const $board = Shogi.boardDiv();
+$app.appendChild($board);
+
+// Create a full board with Komas.
+function putKoma($board, komaTextIdx, {suji, dan, sentei}) {
+  suji = sentei ? suji : 10 - suji;
+  dan = sentei ? dan : 10 - dan;
+  const $koma = Shogi.komaSVG(Shogi.komaTexts[komaTextIdx], {sentei});
+  Shogi.putKomaAt($board, $koma, {suji, dan});
+
+  $koma.addEventListener('click', () => {
+    if (Shogi.komaSelected($koma)) {
+      Shogi.unselectKoma($koma);
+    } else {
+      Shogi.selectKoma($koma);
+    }
+  });
+}
+function putKomas($board, {sentei}) {
+  putKoma($board, sentei ? 0 : 8, {suji: 5, dan: 9, sentei});
+  putKoma($board, 1, {suji: 4, dan: 9, sentei});
+  putKoma($board, 1, {suji: 6, dan: 9, sentei});
+  putKoma($board, 2, {suji: 3, dan: 9, sentei});
+  putKoma($board, 2, {suji: 7, dan: 9, sentei});
+  putKoma($board, 3, {suji: 2, dan: 9, sentei});
+  putKoma($board, 3, {suji: 8, dan: 9, sentei});
+  putKoma($board, 4, {suji: 1, dan: 9, sentei});
+  putKoma($board, 4, {suji: 9, dan: 9, sentei});
+  putKoma($board, 5, {suji: 8, dan: 8, sentei});
+  putKoma($board, 6, {suji: 2, dan: 8, sentei});
+  for (let suji = 1; suji <= 9; suji++) {
+    const dan = 7;
+    putKoma($board, 7, {suji, dan, sentei});
+  }
+}
+putKomas($board, {sentei: true});
+putKomas($board, {sentei: false});
+
+// Board without Suji/Dan texts.
+const $board2 = Shogi.boardDiv();
+$board2.classList.add('shogi__board--no_text');
+$app.appendChild($board2);
+
+const $koma = Shogi.komaSVG(Shogi.komaTexts[14], {sentei: true});
+Shogi.putKomaAt($board2, $koma, {suji: 6, dan: 6});
+
+// Highlights.
+Shogi.highlightCellAt($board2, {suji: 5, dan: 5});
+Shogi.highlightCellAt($board2, {suji: 6, dan: 5});
+Shogi.highlightCellAt($board2, {suji: 7, dan: 5});
+Shogi.highlightCellAt($board2, {suji: 5, dan: 6});
+Shogi.highlightCellAt($board2, {suji: 7, dan: 6});
+Shogi.highlightCellAt($board2, {suji: 6, dan: 7});
+
+</script>
