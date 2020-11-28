@@ -51,12 +51,13 @@
 }
 
 .shogi__board__dot {
-  width: 3px;
-  height: 3px;
-  margin: 0 -2px -2px -1px;
+  width: 5px;
+  height: 5px;
+  margin: 0 -3px -3px -2px;
   background-color: black;
   z-index: 1;
   align-self: flex-end;
+  border-radius: 2.5px;
 }
 
 .shogi__dan_row {
