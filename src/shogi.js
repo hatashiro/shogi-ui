@@ -1,6 +1,6 @@
 ;(function (window) {
 
-const komaTexts = [
+const komaTypes = [
   '王', '金', '銀', '桂', '香', '角', '飛', '歩',
   '玉',       '全', '圭', '杏', '馬', '龍', 'と',
 ];
@@ -27,7 +27,7 @@ const svg = {
     fill: 'rgb(133,111,83)',
   },
 
-  komaText: {
+  komaType: {
     'text-anchor': 'middle',
     'dominant-baseline': 'middle',
     'font-size': '120px',
@@ -37,17 +37,17 @@ const svg = {
   },
 };
 
-function komaSVG(komaText, {sentei}) {
+function komaSVG(type, {sentei}) {
   const $svg = $('svg', svg.root);
 
   const $koma = $('polygon', attrs('koma', {sentei}));
   const $komaSide = $('polygon', attrs('komaSide', {sentei}));
-  const $komaText = $('text', attrs('komaText', {sentei}));
-  $komaText.textContent = komaText;
+  const $komaType = $('text', attrs('komaType', {sentei}));
+  $komaType.textContent = type;
 
   $svg.appendChild($koma);
   $svg.appendChild($komaSide);
-  $svg.appendChild($komaText);
+  $svg.appendChild($komaType);
 
   return $svg;
 }
@@ -221,7 +221,7 @@ function numberFromKanji(kanji) {
 /// Export
 
 window.Shogi = {
-  komaTexts,
+  komaTypes,
   komaSVG,
   boardDiv,
   cellAt,

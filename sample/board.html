@@ -25,10 +25,10 @@ const $board = Shogi.boardDiv();
 $app.appendChild($board);
 
 // Create a full board with Komas.
-function putKoma($board, komaTextIdx, {suji, dan, sentei}) {
+function putKoma($board, komaTypeIdx, {suji, dan, sentei}) {
   suji = sentei ? suji : 10 - suji;
   dan = sentei ? dan : 10 - dan;
-  const $koma = Shogi.komaSVG(Shogi.komaTexts[komaTextIdx], {sentei});
+  const $koma = Shogi.komaSVG(Shogi.komaTypes[komaTypeIdx], {sentei});
   Shogi.putKomaAt($board, $koma, {suji, dan});
 
   $koma.addEventListener('click', () => {
@@ -64,7 +64,7 @@ const $board2 = Shogi.boardDiv();
 $board2.classList.add('shogi__board--no_text');
 $app.appendChild($board2);
 
-const $koma = Shogi.komaSVG(Shogi.komaTexts[14], {sentei: true});
+const $koma = Shogi.komaSVG(Shogi.komaTypes[14], {sentei: true});
 Shogi.putKomaAt($board2, $koma, {suji: 6, dan: 6});
 
 // Highlights.

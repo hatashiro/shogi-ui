@@ -19,9 +19,9 @@
 const $sentei = document.getElementById("sentei");
 const $koutei = document.getElementById("koutei");
 
-Shogi.komaTexts.forEach(komaText => {
-  $sentei.appendChild(Shogi.komaSVG(komaText, {sentei: true}));
-  $koutei.appendChild(Shogi.komaSVG(komaText, {sentei: false}));
+Shogi.komaTypes.forEach(type => {
+  $sentei.appendChild(Shogi.komaSVG(type, {sentei: true}));
+  $koutei.appendChild(Shogi.komaSVG(type, {sentei: false}));
 });
 
 const selected = 'shogi__koma--selected';
