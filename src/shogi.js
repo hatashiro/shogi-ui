@@ -169,6 +169,19 @@ function komaSelectedAt($board, {suji, dan}) {
   return $koma && komaSelected($koma);
 }
 
+function komaType($koma) {
+  return $koma.textContent.trim();
+}
+
+function komaTypeIn($cell) {
+  const $koma = komaIn($cell)
+  return $koma && komaType($koma);
+}
+
+function komaTypeAt($board, {suji, dan}) {
+  return komaTypeIn(cellAt($board, {suji, dan}));
+}
+
 /// Utility Functions
 
 // Note that this is not the exhaustive list of the SVG tag names, but a list
@@ -239,6 +252,9 @@ window.Shogi = {
   selectKomaAt,
   unselectKomaAt,
   komaSelectedAt,
+  komaType,
+  komaTypeAt,
+  komaTypeIn,
 };
 
 })(window);

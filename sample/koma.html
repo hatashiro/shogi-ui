@@ -25,8 +25,14 @@ Shogi.komaTypes.forEach(type => {
 });
 
 const selected = 'shogi__koma--selected';
-document.querySelectorAll('svg').forEach($svg => {
-  $svg.addEventListener('mouseenter', () => $svg.classList.add(selected));
-  $svg.addEventListener('mouseleave', () => $svg.classList.remove(selected));
+document.querySelectorAll('svg').forEach($koma => {
+  $koma.addEventListener('click', () => {
+    if (Shogi.komaSelected($koma)) {
+      $koma.classList.remove(selected);
+    } else {
+      $koma.classList.add(selected);
+    }
+    console.log(Shogi.komaType($koma));
+  });
 });
 </script>
