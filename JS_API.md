@@ -80,6 +80,8 @@ An object type representing a Koma position.
 
 ```
 @typedef {{suji: number, dan: number}}
+```
+
 
 ### `Shogi.cellAt($board, position)`
 
@@ -125,6 +127,8 @@ This method manipulates classes of the cell element.
 ```
 @param {!Element} $cell
 @return {boolean}
+```
+
 
 ### `Shogi.cellHighlightedAt($board, position)`
 
@@ -134,6 +138,8 @@ This method manipulates classes of the cell element.
 @param {!Element} $board
 @param {!Position} position
 @return {boolean}
+```
+
 
 ## Koma
 
@@ -197,6 +203,8 @@ This method manipulates classes of the Koma element.
 ```
 @param {!Element} $koma
 @return {boolean}
+```
+
 
 ### `Shogi.selectKomaAt($board, position)`
 
@@ -271,6 +279,8 @@ Returns the type of the given Koma.
 ```
 @param {!Element} $koma
 @return {string}
+```
+
 
 ### `Shogi.komaTypeIn($cell)`
 
@@ -305,6 +315,8 @@ An object type representing a Mochigoma status for one Koma type.
 
 ```
 @typedef {{type: string, count: number}}
+```
+
 
 ### `Shogi.setMochigomas($mochigomas, mochigomas, option)`
 

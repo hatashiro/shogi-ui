@@ -58,6 +58,9 @@ def definition_comment(comment, kind, name):
 
         lines.append(line)
 
+    if in_comment:
+        lines.append('```\n')
+
     if kind == 'function':
         title = '`Shogi.' + name + '(' + ', '.join(params) + ')`'
     elif kind == 'const':
