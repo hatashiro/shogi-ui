@@ -1,13 +1,31 @@
 ;(function (window) {
 
+// Constants
+
 const komaTypes = [
   '王', '金', '銀', '桂', '香', '角', '飛', '歩',
   '玉',       '全', '圭', '杏', '馬', '龍', 'と',
 ];
 
+const classes = {
+  koma: 'shogi__koma',
+  board: 'shogi__board',
+  sujiTextRow: 'shogi__suji_text_row',
+  sujiText: 'shogi__suji_text',
+  danText: 'shogi__dan_text',
+  danRow: 'shogi__dan_row',
+  boardDot: 'shogi__board__dot',
+  cell: 'shogi__cell',
+  mochigomas: 'shogi__mochigomas',
+  mochigomasKoutei: 'shogi__mochigomas--koutei',
+  mochigoma: 'shogi__mochigoma',
+  mochigomaKoma: 'shogi__mochigoma__koma',
+  mochigomaCount: 'shogi__mochigoma__count',
+};
+
 const svg = {
   root: {
-    class: 'shogi__koma',
+    class: classes.koma,
     viewBox: '0 0 250 250',
   },
 
@@ -53,31 +71,31 @@ function komaSVG(type, {sentei}) {
 }
 
 function boardDiv() {
-  const $board = $('div', {class: 'shogi__board'});
+  const $board = $('div', {class: classes.board});
 
-  const $sujiTextRow = $('div', {class: 'shogi__suji_text_row'});
+  const $sujiTextRow = $('div', {class: classes.sujiTextRow});
   for (let suji = 9; suji >= 1; suji--) {
-    const $sujiText = $('div', {class: 'shogi__suji_text'});
+    const $sujiText = $('div', {class: classes.sujiText});
     $sujiText.textContent = suji;
     $sujiTextRow.appendChild($sujiText);
   }
-  $sujiTextRow.appendChild($('div', {class: 'shogi__dan_text'}));
+  $sujiTextRow.appendChild($('div', {class: classes.danText}));
   $board.appendChild($sujiTextRow);
 
   for (let dan = 1; dan <= 9; dan++) {
-    const $danRow = $('div', {class: 'shogi__dan_row'});
+    const $danRow = $('div', {class: classes.danRow});
 
     for (let suji = 9; suji >= 1; suji--) {
       if ((suji == 3 || suji == 6) && (dan == 3 || dan == 6)) {
-        const $dot = $('div', {class: 'shogi__board__dot'});
+        const $dot = $('div', {class: classes.boardDot});
         $danRow.appendChild($dot);
       }
 
-      const $cell = $('div', {class: 'shogi__cell'});
+      const $cell = $('div', {class: classes.cell});
       $danRow.appendChild($cell);
     }
 
-    const $danText = $('div', {class: 'shogi__dan_text'});
+    const $danText = $('div', {class: classes.danText});
     const $danTextSpan = $('span');
     $danTextSpan.textContent = kanjiFromNumber(dan);
     $danText.appendChild($danTextSpan);
@@ -90,11 +108,11 @@ function boardDiv() {
 }
 
 function mochigomasDiv() {
-  const $container = $('div', {class: 'shogi__mochigomas'});
+  const $container = $('div', {class: classes.mochigomas});
   for (let i = 0; i < 7; i++) {
-    const $mochigoma = $('div', {class: 'shogi__mochigoma'});
-    $mochigoma.append($('div', {class: 'shogi__mochigoma__koma'}));
-    $mochigoma.append($('div', {class: 'shogi__mochigoma__count'}));
+    const $mochigoma = $('div', {class: classes.mochigoma});
+    $mochigoma.append($('div', {class: classes.mochigomaKoma}));
+    $mochigoma.append($('div', {class: classes.mochigomaCount}));
     $container.append($mochigoma);
   }
   return $container;
@@ -104,8 +122,8 @@ function cellAt($board, {suji, dan}) {
   const sujiIdx = 9 - suji;
   const danRowIdx = dan - 1;
 
-  $danRow = $board.querySelectorAll('.shogi__dan_row')[danRowIdx];
-  return $danRow.querySelectorAll('.shogi__cell')[sujiIdx];
+  $danRow = queryClassAll($board, classes.danRow)[danRowIdx];
+  return queryClassAll($danRow, classes.cell)[sujiIdx];
 }
 
 const cellHighlightedClass = 'shogi__cell--highlighted';
@@ -133,7 +151,7 @@ function komaAt($board, {suji, dan}) {
 }
 
 function komaIn($cell) {
-  const $koma = $cell.querySelector('.shogi__koma');
+  const $koma = queryClass($cell, classes.koma);
   return $koma || null;
 }
 
@@ -193,20 +211,18 @@ function komaTypeAt($board, {suji, dan}) {
   return komaTypeIn(cellAt($board, {suji, dan}));
 }
 
-const mochigomasKouteiClass = 'shogi__mochigomas--koutei';
-
 function setMochigomas($container, mochigomas, {sentei}) {
   if (sentei) {
-    $container.classList.remove(mochigomasKouteiClass);
+    $container.classList.remove(classes.mochigomasKoutei);
   } else {
-    $container.classList.add(mochigomasKouteiClass);
+    $container.classList.add(classes.mochigomasKoutei);
   }
 
-  const $mochigomas = $container.querySelectorAll('.shogi__mochigoma');
+  const $mochigomas = queryClassAll($container, classes.mochigoma);
   for (let i = 0; i < 7; i++) {
     const $mochigoma = $mochigomas[i];
-    const $koma = $mochigoma.querySelector('.shogi__mochigoma__koma');
-    const $count = $mochigoma.querySelector('.shogi__mochigoma__count');
+    const $koma = queryClass($mochigoma, classes.mochigomaKoma);
+    const $count = queryClass($mochigoma, classes.mochigomaCount);
 
     // Clear existing contents.
     const $existingKomaSVG = komaIn($koma);
@@ -222,12 +238,12 @@ function setMochigomas($container, mochigomas, {sentei}) {
 }
 
 function getMochigomas($container) {
-  const $mochigomas = $container.querySelectorAll('.shogi__mochigoma');
+  const $mochigomas = queryClassAll($container, classes.mochigoma);
   const mochigomas = [];
   for (let i = 0; i < 7; i++) {
     const $mochigoma = $mochigomas[i];
-    const $koma = $mochigoma.querySelector('.shogi__mochigoma__koma');
-    const $count = $mochigoma.querySelector('.shogi__mochigoma__count');
+    const $koma = queryClass($mochigoma, classes.mochigomaKoma);
+    const $count = queryClass($mochigoma, classes.mochigomaCount);
 
     const type = komaTypeIn($koma);
     const count = parseInt($count.textContent, 10);
@@ -239,7 +255,7 @@ function getMochigomas($container) {
   return mochigomas;
 }
 
-/// Utility Functions
+// Utility Functions
 
 // Note that this is not the exhaustive list of the SVG tag names, but a list
 // used in this module.
@@ -286,6 +302,14 @@ function kanjiFromNumber(number) {
 
 function numberFromKanji(kanji) {
   return numberKanjis.indexOf(kanji) + 1;
+}
+
+function queryClass($container, className) {
+  return $container.querySelector('.' + className);
+}
+
+function queryClassAll($container, className) {
+  return $container.querySelectorAll('.' + className);
 }
 
 /// Export
