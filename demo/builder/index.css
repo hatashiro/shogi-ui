@@ -1,0 +1,11 @@
+/* WIP */
+
+#app .shogi__board {
+  width: 320px;
+  height: 320px;
+  margin: 10px;
+}
+
+#app .shogi__koma {
+  cursor: pointer;
+}

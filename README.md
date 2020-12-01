@@ -16,7 +16,7 @@ size and thus faster to load.
 
 ## Demo
 
-- [Shogi UI Builder](#): WIP
+- [Shogi UI Builder](https://hatashiro.github.io/shogi-ui/demo/builder/): WIP
 
 ## Samples
 
