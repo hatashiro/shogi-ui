@@ -40,20 +40,20 @@ function putKoma($board, komaTypeIdx, {suji, dan, sentei}) {
   });
 }
 function putKomas($board, {sentei}) {
-  putKoma($board, sentei ? 0 : 8, {suji: 5, dan: 9, sentei});
-  putKoma($board, 1, {suji: 4, dan: 9, sentei});
-  putKoma($board, 1, {suji: 6, dan: 9, sentei});
-  putKoma($board, 2, {suji: 3, dan: 9, sentei});
-  putKoma($board, 2, {suji: 7, dan: 9, sentei});
-  putKoma($board, 3, {suji: 2, dan: 9, sentei});
-  putKoma($board, 3, {suji: 8, dan: 9, sentei});
-  putKoma($board, 4, {suji: 1, dan: 9, sentei});
-  putKoma($board, 4, {suji: 9, dan: 9, sentei});
-  putKoma($board, 5, {suji: 8, dan: 8, sentei});
-  putKoma($board, 6, {suji: 2, dan: 8, sentei});
+  putKoma($board, sentei ? 0 : 1, {suji: 5, dan: 9, sentei});
+  putKoma($board, 2, {suji: 2, dan: 8, sentei});
+  putKoma($board, 4, {suji: 8, dan: 8, sentei});
+  putKoma($board, 6, {suji: 4, dan: 9, sentei});
+  putKoma($board, 6, {suji: 6, dan: 9, sentei});
+  putKoma($board, 7, {suji: 3, dan: 9, sentei});
+  putKoma($board, 7, {suji: 7, dan: 9, sentei});
+  putKoma($board, 9, {suji: 2, dan: 9, sentei});
+  putKoma($board, 9, {suji: 8, dan: 9, sentei});
+  putKoma($board, 11, {suji: 1, dan: 9, sentei});
+  putKoma($board, 11, {suji: 9, dan: 9, sentei});
   for (let suji = 1; suji <= 9; suji++) {
     const dan = 7;
-    putKoma($board, 7, {suji, dan, sentei});
+    putKoma($board, 13, {suji, dan, sentei});
   }
 }
 putKomas($board, {sentei: true});
