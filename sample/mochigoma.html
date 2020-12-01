@@ -1,0 +1,63 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="../src/shogi.css" rel="stylesheet">
+<script src="../src/shogi.js"></script>
+
+<style>
+#app .shogi__board {
+  width: 320px;
+  height: 320px;
+  margin: 10px;
+}
+
+#app .shogi__mochigomas {
+  width: 270px;
+  margin: 10px;
+}
+
+#app .shogi__mochigomas.shogi__mochigomas--koutei {
+  margin-left: 60px;
+}
+</style>
+
+<div id="app"></div>
+
+<script>
+const $app = document.querySelector('#app');
+
+const $kouteiMochigomas = Shogi.mochigomasDiv();
+$app.appendChild($kouteiMochigomas);
+
+const $board = Shogi.boardDiv();
+$app.appendChild($board);
+Shogi.putKomaAt(
+  $board,
+  Shogi.komaSVG(Shogi.komaTypes[0], {sentei: true}),
+  {suji: 5, dan: 9},
+);
+Shogi.putKomaAt(
+  $board,
+  Shogi.komaSVG(Shogi.komaTypes[8], {sentei: false}),
+  {suji: 5, dan: 1},
+);
+
+const $senteiMochigomas = Shogi.mochigomasDiv();
+$app.appendChild($senteiMochigomas);
+
+let mochigomas = [
+  {type: '飛', count: 1},
+  {type: '角', count: 1},
+  {type: '金', count: 2},
+  {type: '銀', count: 2},
+  {type: '桂', count: 2},
+  {type: '香', count: 2},
+  {type: '歩', count: 9},
+];
+Shogi.setMochigomas($senteiMochigomas, mochigomas, {sentei: true});
+Shogi.setMochigomas($kouteiMochigomas, mochigomas, {sentei: false});
+
+console.log('Sentei:', Shogi.getMochigomas($senteiMochigomas));
+console.log('Koutei:', Shogi.getMochigomas($kouteiMochigomas));
+
+</script>

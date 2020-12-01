@@ -25,7 +25,8 @@
 }
 
 .shogi__suji_text,
-.shogi__dan_text {
+.shogi__dan_text,
+.shogi__mochigoma__count {
   font-family: "Sawarabi Mincho", serif;
   text-align: center;
 }
@@ -90,4 +91,47 @@
 
 .shogi__cell .shogi__koma {
   flex: .85;
+}
+
+.shogi__mochigomas {
+  display: flex;
+}
+
+.shogi__mochigomas--koutei {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.shogi__mochigoma {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.shogi__mochigomas--koutei .shogi__mochigoma {
+  flex-direction: column-reverse;
+}
+
+.shogi__mochigoma__koma {
+  flex: 1;
+  position: relative;
+}
+
+.shogi__mochigoma__koma .shogi__koma {
+  position: absolute;
+  top: 7%;
+  left: 7%;
+  width: 85%;
+}
+
+.shogi__mochigoma__koma:before {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.shogi__mochigoma__count {
+  height: 15px;
+  line-height: 15px;
+  font-size: 13px;
 }

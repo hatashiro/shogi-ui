@@ -89,6 +89,17 @@ function boardDiv() {
   return $board;
 }
 
+function mochigomasDiv() {
+  const $container = $('div', {class: 'shogi__mochigomas'});
+  for (let i = 0; i < 7; i++) {
+    const $mochigoma = $('div', {class: 'shogi__mochigoma'});
+    $mochigoma.append($('div', {class: 'shogi__mochigoma__koma'}));
+    $mochigoma.append($('div', {class: 'shogi__mochigoma__count'}));
+    $container.append($mochigoma);
+  }
+  return $container;
+}
+
 function cellAt($board, {suji, dan}) {
   const sujiIdx = 9 - suji;
   const danRowIdx = dan - 1;
@@ -182,6 +193,52 @@ function komaTypeAt($board, {suji, dan}) {
   return komaTypeIn(cellAt($board, {suji, dan}));
 }
 
+const mochigomasKouteiClass = 'shogi__mochigomas--koutei';
+
+function setMochigomas($container, mochigomas, {sentei}) {
+  if (sentei) {
+    $container.classList.remove(mochigomasKouteiClass);
+  } else {
+    $container.classList.add(mochigomasKouteiClass);
+  }
+
+  const $mochigomas = $container.querySelectorAll('.shogi__mochigoma');
+  for (let i = 0; i < 7; i++) {
+    const $mochigoma = $mochigomas[i];
+    const $koma = $mochigoma.querySelector('.shogi__mochigoma__koma');
+    const $count = $mochigoma.querySelector('.shogi__mochigoma__count');
+
+    // Clear existing contents.
+    const $existingKomaSVG = komaIn($koma);
+    $existingKomaSVG && $koma.removeChild($existingKomaSVG);
+    $count.textContent = '';
+
+    const {type, count} = mochigomas[i] || {};
+    if (type) {
+      $koma.appendChild(komaSVG(type, {sentei}));
+      $count.textContent = count;
+    }
+  }
+}
+
+function getMochigomas($container) {
+  const $mochigomas = $container.querySelectorAll('.shogi__mochigoma');
+  const mochigomas = [];
+  for (let i = 0; i < 7; i++) {
+    const $mochigoma = $mochigomas[i];
+    const $koma = $mochigoma.querySelector('.shogi__mochigoma__koma');
+    const $count = $mochigoma.querySelector('.shogi__mochigoma__count');
+
+    const type = komaTypeIn($koma);
+    const count = parseInt($count.textContent, 10);
+
+    if (type) {
+      mochigomas[i] = {type, count};
+    }
+  }
+  return mochigomas;
+}
+
 /// Utility Functions
 
 // Note that this is not the exhaustive list of the SVG tag names, but a list
@@ -235,8 +292,11 @@ function numberFromKanji(kanji) {
 
 window.Shogi = {
   komaTypes,
+
   komaSVG,
   boardDiv,
+  mochigomasDiv,
+
   cellAt,
   highlightCellAt,
   unhighlightCellAt,
@@ -255,6 +315,8 @@ window.Shogi = {
   komaType,
   komaTypeAt,
   komaTypeIn,
+  setMochigomas,
+  getMochigomas,
 };
 
 })(window);
