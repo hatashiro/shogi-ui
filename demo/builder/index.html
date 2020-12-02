@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>将棋UI Builder</title>
+  <title>将棋UIビルダー</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="../../src/shogi.css" rel="stylesheet">
@@ -10,12 +10,47 @@
 </head>
 
 <body>
-  <h1>WIP</h1>
+  <div class="container">
+    <h3>将棋UIビルダー</h3>
 
-  <div id="app"></div>
+    <div id="koutei_minus_buttons" class="minus_buttons">
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+    </div>
+    <div id="koutei_mochigomas" class="mochigomas"></div>
+    <div id="board"></div>
+    <div id="sentei_mochigomas" class="mochigomas"></div>
+    <div id="sentei_minus_buttons" class="minus_buttons">
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+      <div class="minus_button"><button>-</button></div>
+    </div>
+
+    <div class="buttons">
+      <button id="reset_button">内容クリア</button>
+    </div>
+
+    <ol>
+      <li>将棋盤の各位置をタップすると駒を配置できます。</li>
+      <li>持ち駒をタップすると持ち駒の数が増えます。マイナスボタンをタップすると減ります。</li>
+      <li>最新のブラウザーをご利用ください。</li>
+    </ol>
+  </div>
 
   <script src="../../src/shogi-compiled.js"></script>
-  <script src="index.js"></script>
+  <script src="utility.js"></script>
+  <script src="model.js"></script>
+  <script src="hash.js"></script>
+  <script src="dom.js"></script>
 </body>
 
 </html>
