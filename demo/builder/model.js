@@ -1,6 +1,6 @@
-const komaTypes = ['飛', '角', '金', '銀', '桂', '香', '歩'];
+const mochigomaTypes = ['飛', '角', '金', '銀', '桂', '香', '歩'];
 
-const initialMochigomas = () => komaTypes.map(type => ({type, count: 0}));
+const initialMochigomas = () => mochigomaTypes.map(type => ({type, count: 0}));
 
 const Model = {
   // Model data.
