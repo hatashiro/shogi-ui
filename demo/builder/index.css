@@ -78,3 +78,68 @@ body {
 .buttons {
   margin: 20px 7px;
 }
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.overlay--show {
+  display: block;
+}
+
+.scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: background-color .15s;
+}
+
+.overlay--open .scrim {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal {
+  position: absolute;
+  bottom: -150px;
+  left: 0;
+  width: 100%;
+  transition: bottom .15s ease-in-out;
+}
+
+.overlay--open .modal {
+  bottom: 0;
+}
+
+.modal__content {
+  width: 100%;
+  height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 7px 7px 0 0;
+  filter: drop-shadow(0px 0px 5px #666);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__control {
+  padding: 7px;
+}
+
+.modal__komas {
+  display: flex;
+  padding: 0 7px 8px 7px;
+}
+
+.modal__komas .shogi__koma {
+  cursor: pointer;
+  flex: 1;
+}

@@ -20,6 +20,20 @@ const DOM = {
   buttons: {
     $reset: $('#reset_button'),
   },
+  overlay: {
+    $overlay: $('#overlay'),
+    $scrim: $('#overlay .scrim'),
+    $control: $('#overlay .modal__control'),
+    control: {
+      radio: {
+        $sente: $('#radio_sente'),
+        $gote: $('#radio_gote'),
+      },
+      $nari: $('#checkbox_nari'),
+      $removeKoma: $('#remove_koma'),
+    },
+    $modalKomas: $('#overlay .modal__komas'),
+  },
 
   appendDiv({$div, $container}) {
     $container.appendChild($div);
@@ -32,10 +46,54 @@ const DOM = {
       {sente: player === 'sente'},
     );
   },
+
+  showOverlay() {
+    DOM.resetOverlay();
+    DOM.overlay.$overlay.classList.add('overlay--show');
+    setTimeout(() => {
+      DOM.overlay.$overlay.classList.add('overlay--open');
+    }, 0);
+  },
+
+  hideOverlay() {
+    DOM.overlay.$overlay.classList.remove('overlay--open');
+    setTimeout(() => {
+      DOM.overlay.$overlay.classList.remove('overlay--show');
+    }, 150);
+  },
+
+  resetOverlay() {
+    DOM.overlay.control.radio.$sente.checked = true;
+    DOM.overlay.control.$nari.checked = false;
+    DOM.updateOverlayKomas();
+  },
+
+  updateOverlayKomas() {
+    // Clear existing komas.
+    DOM.overlay.$modalKomas.innerHTML = '';
+
+    const sente = DOM.overlay.control.radio.$sente.checked;
+    const nari = DOM.overlay.control.$nari.checked;
+
+    const komas = nari ?
+      ['王', '龍', '馬', '金', '全', '圭', '杏', 'と'] :
+      ['王', '飛', '角', '金', '銀', '桂', '香', '歩'];
+    if (!sente) komas.splice(0, 1, '玉');
+
+    for (const type of komas) {
+      DOM.overlay.$modalKomas.appendChild(Shogi.komaSVG(type, {sente}));
+    }
+  },
 };
 
 // Initializes board.
 DOM.appendDiv(DOM.board);
+DOM.board.$div.querySelectorAll('.shogi__cell').forEach($cell => {
+  $cell.addEventListener('click', () => {
+    // TODO
+    DOM.showOverlay();
+  });
+});
 
 // Initializes Mochigoma divs.
 Utility.callForBothPlayers(player => {
@@ -78,3 +136,7 @@ DOM.buttons.$reset.addEventListener('click', () => {
   Utility.callForBothPlayers(DOM.updateMochigoma);
   Hash.update();
 });
+
+// Init overlay.
+DOM.overlay.$scrim.addEventListener('click', DOM.hideOverlay);
+DOM.overlay.$control.addEventListener('change', DOM.updateOverlayKomas);

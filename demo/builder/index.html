@@ -46,6 +46,22 @@
     </ol>
   </div>
 
+  <div id="overlay" class="overlay">
+    <div class="scrim"></div>
+    <div class="modal">
+      <div class="modal__content">
+        <div class="modal__control">
+          <input type="radio" name="sente" id="radio_sente" value="sente" checked><label for="radio_sente">先手</label>
+          <input type="radio" name="sente" id="radio_gote" value="gote"><label for="radio_gote">後手</label>
+          <input type="checkbox" name="nari" id="checkbox_nari" value="nari"><label for="checkbox_nari">成り</label>
+          <button id="remove_koma">駒を取る</button>
+        </div>
+        <div class="modal__komas">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="../../src/shogi-compiled.js"></script>
   <script src="utility.js"></script>
   <script src="model.js"></script>
