@@ -19,6 +19,7 @@ const DOM = {
   },
   buttons: {
     $reset: $('#reset_button'),
+    $viewer: $('#viewer_button'),
   },
   overlay: {
     $overlay: $('#overlay'),
@@ -189,4 +190,9 @@ DOM.overlay.$control.addEventListener('change', DOM.updateOverlayKomas);
 DOM.overlay.control.$removeKoma.addEventListener('click', () => {
   DOM.removeKomaAtCurrentPosition();
   DOM.hideOverlay();
+});
+
+// Viewer.
+DOM.buttons.$viewer.addEventListener('click', () => {
+  location.href = 'viewer.html' + location.hash;
 });

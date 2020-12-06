@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>将棋UI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../../src/shogi.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div id="gote_mochigomas" class="mochigomas"></div>
+    <div id="board"></div>
+    <div id="sente_mochigomas" class="mochigomas"></div>
+
+    <div class="buttons">
+      <button id="edit_button">編集</button>
+      <button id="url_copy_button">URLをコピー</button>
+    </div>
+  </div>
+
+  <script src="../../src/shogi-compiled.js"></script>
+  <script src="utility.js"></script>
+  <script src="model.js"></script>
+  <script src="hash.js"></script>
+  <script src="viewer.js"></script>
+</body>
+
+</html>
