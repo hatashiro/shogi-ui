@@ -75,4 +75,15 @@ Shogi.highlightCellAt($board2, {suji: 5, dan: 6});
 Shogi.highlightCellAt($board2, {suji: 7, dan: 6});
 Shogi.highlightCellAt($board2, {suji: 6, dan: 7});
 
+$board2.querySelectorAll('.shogi__cell').forEach($cell => {
+  $cell.addEventListener('click', () => {
+    console.log(Shogi.cellPosition($cell));
+    if (Shogi.cellHighlighted($cell)) {
+      Shogi.unhighlightCell($cell);
+    } else {
+      Shogi.highlightCell($cell);
+    }
+  });
+});
+
 </script>

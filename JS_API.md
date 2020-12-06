@@ -96,29 +96,57 @@ Returns the cell element at the given position.
 
 The returned element can be used as the `$cell` parameter of other methods.
 
-### `Shogi.highlightCellAt($board, position)`
+### `Shogi.cellPosition($cell)`
+
+Returns the position of a given cell.
+
+```
+@param {!Element} $cell
+@return {!Position}
+```
+
+
+### `Shogi.highlightCell($cell)`
 
 Highlights a cell.
 
 ```
-@param {!Element} $board
-@param {!Position} position
+@param {!Element} $cell
 ```
 
 
 This method manipulates classes of the cell element.
 
-### `Shogi.unhighlightCellAt($board, position)`
+### `Shogi.unhighlightCell($cell)`
 
 Unhighlights a cell.
 
 ```
+@param {!Element} $cell
+```
+
+
+This method manipulates classes of the cell element.
+
+### `Shogi.highlightCellAt($board, position)`
+
+Highlights the cell at the given position.
+
+```
 @param {!Element} $board
 @param {!Position} position
 ```
 
 
-This method manipulates classes of the cell element.
+### `Shogi.unhighlightCellAt($board, position)`
+
+Unhighlights the cell at the given position.
+
+```
+@param {!Element} $board
+@param {!Position} position
+```
+
 
 ### `Shogi.cellHighlighted($cell)`
 

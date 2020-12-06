@@ -196,6 +196,8 @@ function boardDiv() {
       }
 
       const $cell = $('div', {'class': classes.cell});
+      $cell.dataset['suji'] = suji;
+      $cell.dataset['dan'] = dan;
       $danRow.appendChild($cell);
     }
 
@@ -255,37 +257,64 @@ var Position;
  * The returned element can be used as the `$cell` parameter of other methods.
  */
 function cellAt($board, position) {
-  const sujiIdx = 9 - position['suji'];
-  const danRowIdx = position['dan'] - 1;
+  const suji = position['suji'];
+  const dan = position['dan'];
+  return /** @type {!Element} */ (
+    $board.querySelector(`[data-suji="${suji}"][data-dan="${dan}"]`));
+}
 
-  const $danRow = queryClassAll($board, classes.danRow)[danRowIdx];
-  return queryClassAll($danRow, classes.cell)[sujiIdx];
+/**
+ * Returns the position of a given cell.
+ * @public
+ * @param {!Element} $cell
+ * @return {!Position}
+ */
+function cellPosition($cell) {
+  const suji = parseInt($cell.dataset['suji'], 10);
+  const dan = parseInt($cell.dataset['dan'], 10);
+  return {'suji': suji, 'dan': dan};
 }
 
 /**
  * Highlights a cell.
  * @public
- * @param {!Element} $board
- * @param {!Position} position
+ * @param {!Element} $cell
  *
  * This method manipulates classes of the cell element.
  */
-function highlightCellAt($board, position) {
-  const $cell = cellAt($board, position);
+function highlightCell($cell) {
   $cell.classList.add(classes.cellHighlighted);
 }
 
 /**
  * Unhighlights a cell.
  * @public
- * @param {!Element} $board
- * @param {!Position} position
+ * @param {!Element} $cell
  *
  * This method manipulates classes of the cell element.
  */
-function unhighlightCellAt($board, position) {
-  const $cell = cellAt($board, position);
+function unhighlightCell($cell) {
   $cell.classList.remove(classes.cellHighlighted);
+}
+
+/**
+ * Highlights the cell at the given position.
+ * @public
+ * @param {!Element} $board
+ * @param {!Position} position
+ */
+function highlightCellAt($board, position) {
+  highlightCell(cellAt($board, position));
+}
+
+/**
+ * Unhighlights the cell at the given position.
+ * @public
+ * @param {!Element} $board
+ * @param {!Position} position
+ */
+function unhighlightCellAt($board, position) {
+  unhighlightCell(cellAt($board, position));
 }
 
 /**
@@ -643,6 +672,9 @@ global['Shogi'] = {
 
   // Cell
   'cellAt': cellAt,
+  'cellPosition': cellPosition,
+  'highlightCell': highlightCell,
+  'unhighlightCell': unhighlightCell,
   'highlightCellAt': highlightCellAt,
   'unhighlightCellAt': unhighlightCellAt,
   'cellHighlighted': cellHighlighted,
