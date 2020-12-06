@@ -6,15 +6,15 @@ const DOM = {
     $container: $('#board'),
   },
   mochigoma: {
-    sentei: {
+    sente: {
       $div: Shogi.mochigomasDiv(),
-      $container: $('#sentei_mochigomas'),
-      $minusButtons: $('#sentei_minus_buttons'),
+      $container: $('#sente_mochigomas'),
+      $minusButtons: $('#sente_minus_buttons'),
     },
-    koutei: {
+    gote: {
       $div: Shogi.mochigomasDiv(),
-      $container: $('#koutei_mochigomas'),
-      $minusButtons: $('#koutei_minus_buttons'),
+      $container: $('#gote_mochigomas'),
+      $minusButtons: $('#gote_minus_buttons'),
     },
   },
   buttons: {
@@ -29,7 +29,7 @@ const DOM = {
     Shogi.setMochigomas(
       DOM.mochigoma[player].$div,
       Model.mochigoma[player],
-      {sentei: player === 'sentei'},
+      {sente: player === 'sente'},
     );
   },
 };

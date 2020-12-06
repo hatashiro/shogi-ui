@@ -97,7 +97,7 @@
   display: flex;
 }
 
-.shogi__mochigomas--koutei {
+.shogi__mochigomas--gote {
   display: flex;
   flex-direction: row-reverse;
 }
@@ -108,7 +108,7 @@
   flex-direction: column;
 }
 
-.shogi__mochigomas--koutei .shogi__mochigoma {
+.shogi__mochigomas--gote .shogi__mochigoma {
   flex-direction: column-reverse;
 }
 

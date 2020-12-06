@@ -16,7 +16,7 @@
   margin: 10px;
 }
 
-#app .shogi__mochigomas.shogi__mochigomas--koutei {
+#app .shogi__mochigomas.shogi__mochigomas--gote {
   margin-left: 60px;
 }
 </style>
@@ -26,24 +26,24 @@
 <script>
 const $app = document.querySelector('#app');
 
-const $kouteiMochigomas = Shogi.mochigomasDiv();
-$app.appendChild($kouteiMochigomas);
+const $goteMochigomas = Shogi.mochigomasDiv();
+$app.appendChild($goteMochigomas);
 
 const $board = Shogi.boardDiv();
 $app.appendChild($board);
 Shogi.putKomaAt(
   $board,
-  Shogi.komaSVG(Shogi.komaTypes[0], {sentei: true}),
+  Shogi.komaSVG(Shogi.komaTypes[0], {sente: true}),
   {suji: 5, dan: 9},
 );
 Shogi.putKomaAt(
   $board,
-  Shogi.komaSVG(Shogi.komaTypes[1], {sentei: false}),
+  Shogi.komaSVG(Shogi.komaTypes[1], {sente: false}),
   {suji: 5, dan: 1},
 );
 
-const $senteiMochigomas = Shogi.mochigomasDiv();
-$app.appendChild($senteiMochigomas);
+const $senteMochigomas = Shogi.mochigomasDiv();
+$app.appendChild($senteMochigomas);
 
 let mochigomas = [
   {type: '飛', count: 1},
@@ -54,10 +54,10 @@ let mochigomas = [
   {type: '香', count: 2},
   {type: '歩', count: 9},
 ];
-Shogi.setMochigomas($senteiMochigomas, mochigomas, {sentei: true});
-Shogi.setMochigomas($kouteiMochigomas, mochigomas, {sentei: false});
+Shogi.setMochigomas($senteMochigomas, mochigomas, {sente: true});
+Shogi.setMochigomas($goteMochigomas, mochigomas, {sente: false});
 
-console.log('Sentei:', Shogi.getMochigomas($senteiMochigomas));
-console.log('Koutei:', Shogi.getMochigomas($kouteiMochigomas));
+console.log('Sente:', Shogi.getMochigomas($senteMochigomas));
+console.log('Gote:', Shogi.getMochigomas($goteMochigomas));
 
 </script>

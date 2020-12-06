@@ -33,7 +33,7 @@ body {
   width: 70%;
 }
 
-#koutei_mochigomas {
+#gote_mochigomas {
   margin-left: 30%;
 }
 
@@ -43,7 +43,7 @@ body {
   display: flex;
 }
 
-#koutei_minus_buttons {
+#gote_minus_buttons {
   margin-left: 30%;
   flex-direction: row-reverse;
 }

@@ -47,7 +47,7 @@ const classes = {
   koma: 'shogi__koma',
   komaSelected: 'shogi__koma--selected',
   mochigomas: 'shogi__mochigomas',
-  mochigomasKoutei: 'shogi__mochigomas--koutei',
+  mochigomasGote: 'shogi__mochigomas--gote',
   mochigoma: 'shogi__mochigoma',
   mochigomaKoma: 'shogi__mochigoma__koma',
   mochigomaCount: 'shogi__mochigoma__count',
@@ -57,14 +57,14 @@ const classes = {
  * @typedef {Array<!Object<string, string>>}
  *
  * The Array type is actually a binary tuple, the first element of which is for
- * Sentei and the other is for Koutei.
+ * Sente and the other is for Gote.
  */
 var PlayerDependentAttributes;
 
 /** @enum {number} */
 const player = {
-  sentei: 0,
-  koutei: 1,
+  sente: 0,
+  gote: 1,
 };
 
 /**
@@ -72,19 +72,19 @@ const player = {
  * @return {!PlayerDependentAttributes}
  */
 function playerDependentAttributes(attributes) {
-  const sentei = {};
-  const koutei = {};
+  const sente = {};
+  const gote = {};
   for (const key in attributes) {
     const value = attributes[key];
     if (Array.isArray(value)) {
-      sentei[key] = value[player.sentei];
-      koutei[key] = value[player.koutei];
+      sente[key] = value[player.sente];
+      gote[key] = value[player.gote];
     } else {
-      sentei[key] = value;
-      koutei[key] = value;
+      sente[key] = value;
+      gote[key] = value;
     }
   }
-  return [sentei, koutei];
+  return [sente, gote];
 }
 
 /**
@@ -133,25 +133,25 @@ const svg = {
  */
 
 /**
- * An option type to indicate the method is called for Sentei.
+ * An option type to indicate the method is called for Sente.
  * @public
- * @typedef {{sentei: boolean}}
+ * @typedef {{sente: boolean}}
  *
- * Set the `sentei` field to `true` for Sentei, and `false` for Koutei.
+ * Set the `sente` field to `true` for Sente, and `false` for Gote.
  */
-var SenteiOption;
+var SenteOption;
 
 /**
  * Creates an `svg` element of a Koma.
  * @public
  * @param {string} type One of the Koma type in `komaTypes`.
- * @param {SenteiOption} option
+ * @param {SenteOption} option
  * @return {!Element}
  *
  * The returned element can be used as the `$koma` parameter of other methods.
  */
 function komaSVG(type, option) {
-  const playerIndex = option['sentei'] ? player.sentei : player.koutei;
+  const playerIndex = option['sente'] ? player.sente : player.gote;
 
   const $svg = $('svg', svg.root[playerIndex]);
 
@@ -506,19 +506,19 @@ var Mochigoma;
  * @public
  * @param {!Element} $mochigomas The Mochigoma container element.
  * @param {!Array<!Mochigoma>} mochigomas
- * @param {SenteiOption} option
+ * @param {SenteOption} option
  *
  * Note that the maximum length of `mochigomas` is 7. The status will be
  * displayed in the same order of the given objects.
  *
  * This method manipulates classes of the Mochigoma container element by the
- * Sentei option.
+ * Sente option.
  */
 function setMochigomas($mochigomas, mochigomas, option) {
-  if (option['sentei']) {
-    $mochigomas.classList.remove(classes.mochigomasKoutei);
+  if (option['sente']) {
+    $mochigomas.classList.remove(classes.mochigomasGote);
   } else {
-    $mochigomas.classList.add(classes.mochigomasKoutei);
+    $mochigomas.classList.add(classes.mochigomasGote);
   }
 
   const all$mochigoma = queryClassAll($mochigomas, classes.mochigoma);

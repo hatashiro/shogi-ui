@@ -22,16 +22,16 @@ It's in the following order: `王玉飛龍角馬金銀全桂圭香杏歩と`.
 
 ## Element factories
 
-### type `SenteiOption`
+### type `SenteOption`
 
-An option type to indicate the method is called for Sentei.
+An option type to indicate the method is called for Sente.
 
 ```
-@typedef {{sentei: boolean}}
+@typedef {{sente: boolean}}
 ```
 
 
-Set the `sentei` field to `true` for Sentei, and `false` for Koutei.
+Set the `sente` field to `true` for Sente, and `false` for Gote.
 
 ### `Shogi.komaSVG(type, option)`
 
@@ -39,7 +39,7 @@ Creates an `svg` element of a Koma.
 
 ```
 @param {string} type One of the Koma type in `komaTypes`.
-@param {SenteiOption} option
+@param {SenteOption} option
 @return {!Element}
 ```
 
@@ -325,7 +325,7 @@ Sets the Mochigoma status.
 ```
 @param {!Element} $mochigomas The Mochigoma container element.
 @param {!Array<!Mochigoma>} mochigomas
-@param {SenteiOption} option
+@param {SenteOption} option
 ```
 
 
@@ -333,7 +333,7 @@ Note that the maximum length of `mochigomas` is 7. The status will be
 displayed in the same order of the given objects.
 
 This method manipulates classes of the Mochigoma container element by the
-Sentei option.
+Sente option.
 
 ### `Shogi.getMochigomas($mochigomas)`
 

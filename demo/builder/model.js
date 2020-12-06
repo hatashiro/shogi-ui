@@ -5,12 +5,12 @@ const initialMochigomas = () => mochigomaTypes.map(type => ({type, count: 0}));
 const Model = {
   // Model data.
   koma: {
-    sentei: [],
-    koutei: [],
+    sente: [],
+    gote: [],
   },
   mochigoma: {
-    sentei: initialMochigomas(),
-    koutei: initialMochigomas(),
+    sente: initialMochigomas(),
+    gote: initialMochigomas(),
   },
 
   reset(player) {

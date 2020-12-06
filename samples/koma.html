@@ -12,16 +12,16 @@
 }
 </style>
 
-<div id="koutei"></div>
-<div id="sentei"></div>
+<div id="gote"></div>
+<div id="sente"></div>
 
 <script>
-const $sentei = document.getElementById("sentei");
-const $koutei = document.getElementById("koutei");
+const $sente = document.getElementById("sente");
+const $gote = document.getElementById("gote");
 
 Shogi.komaTypes.forEach(type => {
-  $sentei.appendChild(Shogi.komaSVG(type, {sentei: true}));
-  $koutei.appendChild(Shogi.komaSVG(type, {sentei: false}));
+  $sente.appendChild(Shogi.komaSVG(type, {sente: true}));
+  $gote.appendChild(Shogi.komaSVG(type, {sente: false}));
 });
 
 const selected = 'shogi__koma--selected';
