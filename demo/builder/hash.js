@@ -1,13 +1,13 @@
 const Hash = {
   update() {
-    let hash = [
-      Model.serializeKomas('sente'),
-      Model.serializeKomas('gote'),
+    const tokens = [
+      Model.serializeBoard(),
       Model.serializeMochigomas('sente'),
       Model.serializeMochigomas('gote'),
-    ].join('|');
-    hash = hash == '|||' ? '' : hash;
-    history.replaceState(null, '', location.pathname + '#' + hash);
+    ];
+    const hash =
+      tokens.some(token => token.length > 0) ? '#' + tokens.join('|') : '';
+    history.replaceState(null, '', location.pathname + hash);
   },
 
   parse(hash) {
@@ -15,10 +15,9 @@ const Hash = {
 
     const tokens = hash.split('|');
 
-    Model.deserializeKomas('sente', tokens[0]);
-    Model.deserializeKomas('gote', tokens[1]);
-    Model.deserializeMochigomas('sente', tokens[2]);
-    Model.deserializeMochigomas('gote', tokens[3]);
+    Model.deserializeBoard(tokens[0]);
+    Model.deserializeMochigomas('sente', tokens[1]);
+    Model.deserializeMochigomas('gote', tokens[2]);
   },
 };
 

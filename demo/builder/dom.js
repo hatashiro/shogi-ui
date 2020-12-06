@@ -39,6 +39,21 @@ const DOM = {
     $container.appendChild($div);
   },
 
+  loadInitialKomas() {
+    for (let suji = 1; suji <= 9; suji++) {
+      for (let dan = 1; dan <= 9; dan++) {
+        const position = {suji, dan};
+        const koma = Model.board[suji][dan];
+        if (koma) {
+          const $koma = Shogi.komaSVG(koma.type, {sente: koma.sente});
+          Shogi.putKomaAt(DOM.board.$div, $koma, position);
+        } else {
+          Shogi.removeKomaAt(DOM.board.$div, position);
+        }
+      }
+    }
+  },
+
   updateMochigoma(player) {
     Shogi.setMochigomas(
       DOM.mochigoma[player].$div,
@@ -48,7 +63,6 @@ const DOM = {
   },
 
   showOverlay() {
-    DOM.resetOverlay();
     DOM.overlay.$overlay.classList.add('overlay--show');
     setTimeout(() => {
       DOM.overlay.$overlay.classList.add('overlay--open');
@@ -56,16 +70,11 @@ const DOM = {
   },
 
   hideOverlay() {
+    DOM.clearCellSelection();
     DOM.overlay.$overlay.classList.remove('overlay--open');
     setTimeout(() => {
       DOM.overlay.$overlay.classList.remove('overlay--show');
     }, 150);
-  },
-
-  resetOverlay() {
-    DOM.overlay.control.radio.$sente.checked = true;
-    DOM.overlay.control.$nari.checked = false;
-    DOM.updateOverlayKomas();
   },
 
   updateOverlayKomas() {
@@ -81,8 +90,42 @@ const DOM = {
     if (!sente) komas.splice(0, 1, '玉');
 
     for (const type of komas) {
-      DOM.overlay.$modalKomas.appendChild(Shogi.komaSVG(type, {sente}));
+      const $koma = Shogi.komaSVG(type, {sente});
+      $koma.addEventListener('click', () => {
+        DOM.putKomaAtCurrentPosition(type, {sente});
+        DOM.hideOverlay();
+      });
+      DOM.overlay.$modalKomas.appendChild($koma);
     }
+  },
+
+  selectCell($cell) {
+    DOM.clearCellSelection();
+    Shogi.highlightCell($cell);
+    Model.selectedPosition = Shogi.cellPosition($cell);
+  },
+
+  clearCellSelection() {
+    if (!Model.selectedPosition) return;
+    Shogi.unhighlightCellAt(DOM.board.$div, Model.selectedPosition);
+    Model.selectedPosition = null;
+  },
+
+  putKomaAtCurrentPosition(type, {sente}) {
+    if (!Model.selectedPosition) return;
+
+    $newKoma = Shogi.komaSVG(type, {sente});
+    Shogi.putKomaAt(DOM.board.$div, $newKoma, Model.selectedPosition);
+    Model.addKomaAt(type, {sente}, Model.selectedPosition);
+    Hash.update();
+  },
+
+  removeKomaAtCurrentPosition() {
+    if (!Model.selectedPosition) return;
+
+    Shogi.removeKomaAt(DOM.board.$div, Model.selectedPosition);
+    Model.removeKomaAt(Model.selectedPosition);
+    Hash.update();
   },
 };
 
@@ -90,10 +133,11 @@ const DOM = {
 DOM.appendDiv(DOM.board);
 DOM.board.$div.querySelectorAll('.shogi__cell').forEach($cell => {
   $cell.addEventListener('click', () => {
-    // TODO
+    DOM.selectCell($cell);
     DOM.showOverlay();
   });
 });
+DOM.loadInitialKomas();
 
 // Initializes Mochigoma divs.
 Utility.callForBothPlayers(player => {
@@ -133,10 +177,16 @@ DOM.buttons.$reset.addEventListener('click', () => {
   if (!confirm('本当にクリアしますか？')) return;
 
   Model.resetAll();
+  DOM.loadInitialKomas();
   Utility.callForBothPlayers(DOM.updateMochigoma);
   Hash.update();
 });
 
 // Init overlay.
 DOM.overlay.$scrim.addEventListener('click', DOM.hideOverlay);
+DOM.updateOverlayKomas();
 DOM.overlay.$control.addEventListener('change', DOM.updateOverlayKomas);
+DOM.overlay.control.$removeKoma.addEventListener('click', () => {
+  DOM.removeKomaAtCurrentPosition();
+  DOM.hideOverlay();
+});
