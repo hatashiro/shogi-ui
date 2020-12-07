@@ -36,7 +36,9 @@ const komaTypes = [
 
 /** @enum {string} */
 const classes = {
+  square: 'shogi__square',
   board: 'shogi__board',
+  boardContent: 'shogi__board__content',
   sujiTextRow: 'shogi__suji_text_row',
   sujiText: 'shogi__suji_text',
   danText: 'shogi__dan_text',
@@ -97,7 +99,6 @@ function playerDependentAttributes(attributes) {
  */
 const svg = {
   root: playerDependentAttributes({
-    'class': classes.koma,
     'viewBox': '0 0 250 250',
   }),
 
@@ -142,7 +143,7 @@ const svg = {
 var SenteOption;
 
 /**
- * Creates an `svg` element of a Koma.
+ * Creates a `div` element of a Koma.
  * @public
  * @param {string} type One of the Koma type in `komaTypes`.
  * @param {SenteOption} option
@@ -150,21 +151,21 @@ var SenteOption;
  *
  * The returned element can be used as the `$koma` parameter of other methods.
  */
-function komaSVG(type, option) {
+function komaDiv(type, option) {
+  const $koma = $('div', {'class': squaredClass(classes.koma)});
   const playerIndex = option['sente'] ? player.sente : player.gote;
 
   const $svg = $('svg', svg.root[playerIndex]);
 
-  const $koma = $('polygon', svg.koma[playerIndex]);
-  const $komaSide = $('polygon', svg.komaSide[playerIndex]);
+  $svg.appendChild($('polygon', svg.koma[playerIndex]));
+  $svg.appendChild($('polygon', svg.komaSide[playerIndex]));
+
   const $komaType = $('text', svg.komaType[playerIndex]);
   $komaType.textContent = type;
-
-  $svg.appendChild($koma);
-  $svg.appendChild($komaSide);
   $svg.appendChild($komaType);
 
-  return $svg;
+  $koma.appendChild($svg);
+  return $koma;
 }
 
 /**
@@ -175,7 +176,9 @@ function komaSVG(type, option) {
  * The returned element can be used as the `$board` parameter of other methods.
  */
 function boardDiv() {
-  const $board = $('div', {'class': classes.board});
+  const $board = $('div', {'class': squaredClass(classes.board)});
+  const $content = $('div', {'class': classes.boardContent});
+  $board.appendChild($content);
 
   const $sujiTextRow = $('div', {'class': classes.sujiTextRow});
   for (let suji = 9; suji >= 1; suji--) {
@@ -184,7 +187,7 @@ function boardDiv() {
     $sujiTextRow.appendChild($sujiText);
   }
   $sujiTextRow.appendChild($('div', {'class': classes.danText}));
-  $board.appendChild($sujiTextRow);
+  $content.appendChild($sujiTextRow);
 
   for (let dan = 1; dan <= 9; dan++) {
     const $danRow = $('div', {'class': classes.danRow});
@@ -207,7 +210,7 @@ function boardDiv() {
     $danText.appendChild($danTextSpan);
     $danRow.appendChild($danText);
 
-    $board.appendChild($danRow);
+    $content.appendChild($danRow);
   }
 
   return $board;
@@ -564,7 +567,7 @@ function setMochigomas($mochigomas, mochigomas, option) {
 
     const {type, count} = mochigomas[i] || {};
     if (type) {
-      $koma.appendChild(komaSVG(type, option));
+      $koma.appendChild(komaDiv(type, option));
       $count.textContent = count;
     }
   }
@@ -660,13 +663,21 @@ function queryClassAll($container, className) {
   return $container.querySelectorAll('.' + className);
 }
 
+/**
+ * @param {string} className
+ * @return {string}
+ */
+function squaredClass(className) {
+  return className + ' ' + classes.square;
+}
+
 // Exports the global variable.
 global['Shogi'] = {
   // Constants
   'komaTypes': komaTypes,
 
   // Element factories
-  'komaSVG': komaSVG,
+  'komaDiv': komaDiv,
   'boardDiv': boardDiv,
   'mochigomasDiv': mochigomasDiv,
 

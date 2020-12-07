@@ -6,7 +6,8 @@
 
 <style>
 .shogi__koma {
-  height: 80px;
+  display: inline-block;
+  width: 80px;
   margin: 15px;
   cursor: pointer;
 }
@@ -20,8 +21,8 @@ const $sente = document.getElementById("sente");
 const $gote = document.getElementById("gote");
 
 Shogi.komaTypes.forEach(type => {
-  $sente.appendChild(Shogi.komaSVG(type, {sente: true}));
-  $gote.appendChild(Shogi.komaSVG(type, {sente: false}));
+  $sente.appendChild(Shogi.komaDiv(type, {sente: true}));
+  $gote.appendChild(Shogi.komaDiv(type, {sente: false}));
 });
 
 const selected = 'shogi__koma--selected';

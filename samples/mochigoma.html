@@ -7,7 +7,6 @@
 <style>
 #app .shogi__board {
   width: 320px;
-  height: 320px;
   margin: 10px;
 }
 
@@ -33,12 +32,12 @@ const $board = Shogi.boardDiv();
 $app.appendChild($board);
 Shogi.putKomaAt(
   $board,
-  Shogi.komaSVG(Shogi.komaTypes[0], {sente: true}),
+  Shogi.komaDiv(Shogi.komaTypes[0], {sente: true}),
   {suji: 5, dan: 9},
 );
 Shogi.putKomaAt(
   $board,
-  Shogi.komaSVG(Shogi.komaTypes[1], {sente: false}),
+  Shogi.komaDiv(Shogi.komaTypes[1], {sente: false}),
   {suji: 5, dan: 1},
 );
 

@@ -33,9 +33,9 @@ An option type to indicate the method is called for Sente.
 
 Set the `sente` field to `true` for Sente, and `false` for Gote.
 
-### `Shogi.komaSVG(type, option)`
+### `Shogi.komaDiv(type, option)`
 
-Creates an `svg` element of a Koma.
+Creates a `div` element of a Koma.
 
 ```
 @param {string} type One of the Koma type in `komaTypes`.

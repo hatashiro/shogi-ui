@@ -1,5 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Sawarabi+Mincho);
 
+.shogi__square {
+  position: relative;
+}
+
+.shogi__square:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.shogi__square > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .shogi__koma {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -14,7 +32,7 @@
   filter: drop-shadow(2px 6px 3px #666);
 }
 
-.shogi__board {
+.shogi__board__content {
   display: flex;
   flex-direction: column;
 }
@@ -114,20 +132,7 @@
 
 .shogi__mochigoma__koma {
   flex: 1;
-  position: relative;
-}
-
-.shogi__mochigoma__koma .shogi__koma {
-  position: absolute;
-  top: 7%;
-  left: 7%;
-  width: 85%;
-}
-
-.shogi__mochigoma__koma:before {
-  content: '';
-  display: block;
-  padding-top: 100%;
+  padding: 7%;
 }
 
 .shogi__mochigoma__count {
