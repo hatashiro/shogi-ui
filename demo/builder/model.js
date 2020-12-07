@@ -45,7 +45,9 @@ const Model = {
       const suji = parseInt(token.charAt(1), 10);
       const dan = parseInt(token.charAt(2), 10);
       const type = token.charAt(3);
-      Model.board[suji][dan] = {type, sente};
+      if (Number.isInteger(suji) && Number.isInteger(dan) && type) {
+        Model.board[suji][dan] = {type, sente};
+      }
     }
   },
 
@@ -74,7 +76,9 @@ const Model = {
     for (const token of str.split(',')) {
       const type = token.charAt(0);
       const count = parseInt(token.charAt(1), 10);
-      Model.updateMochigoma(player, type, () => count);
+      if (type && Number.isInteger(count)) {
+        Model.updateMochigoma(player, type, () => count);
+      }
     }
   },
 };
