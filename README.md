@@ -20,15 +20,11 @@ size and thus faster to load.
 
 ## Samples
 
-The [`samples/`](samples) directory contains sample files. Files with the
-`_static` suffix are ones without JS.
+The [`samples/`](samples) directory contains sample files.
 
 - [koma.html](https://hatashiro.github.io/shogi-ui/samples/koma.html)
-  ([static](https://hatashiro.github.io/shogi-ui/samples/koma_static.html))
 - [board.html](https://hatashiro.github.io/shogi-ui/samples/board.html)
-  ([static](https://hatashiro.github.io/shogi-ui/samples/board_static.html))
 - [mochigoma.html](https://hatashiro.github.io/shogi-ui/samples/mochigoma.html)
-  ([static](https://hatashiro.github.io/shogi-ui/samples/mochigoma_static.html))
 
 ## Development
 
