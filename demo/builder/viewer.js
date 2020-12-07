@@ -19,6 +19,9 @@ const DOM = {
     $edit: $('#edit_button'),
     $urlCopy: $('#url_copy_button'),
   },
+  inputs: {
+    $url: $('#url_input'),
+  },
 
   appendDiv({$div, $container}) {
     $container.appendChild($div);
@@ -62,15 +65,9 @@ DOM.buttons.$edit.addEventListener('click', () => {
   location.href = 'index.html' + location.hash, '_blank';
 });
 
+DOM.inputs.$url.value = decodeURI(location.href);
 DOM.buttons.$urlCopy.addEventListener('click', async () => {
-  try {
-    const {state} =
-      await navigator.permissions.query({name: "clipboard-write"});
-    if (state == 'granted' || state == 'prompty') {
-      await navigator.clipboard.writeText(location.href);
-      alert('URLをコピーしました。');
-    }
-  } catch (err) {
-    alert('ブラウザーがURLコピーをサポートしておりません。');
-  }
+  DOM.inputs.$url.focus();
+  DOM.inputs.$url.setSelectionRange(0, DOM.inputs.$url.value.length);
+  document.execCommand("copy");
 });
