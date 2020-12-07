@@ -80,35 +80,29 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  transition: background-color .15s;
-}
-
-.overlay--open .scrim {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal {
   position: absolute;
-  bottom: -150px;
   left: 0;
+  top: 30%;
   width: 100%;
-  transition: bottom .15s ease-in-out;
+  height: 0;
 }
 
-.overlay--open .modal {
-  bottom: 0;
+.modal--near_bottom {
+  top: 70%;
 }
 
 .modal__content {
-  width: 100%;
-  height: 100%;
+  width: 95%;
   max-width: 800px;
   margin: 0 auto;
   background-color: #fff;
-  border-radius: 7px 7px 0 0;
+  border-radius: 7px;
+  transform: translateY(-50%);
   filter: drop-shadow(0px 0px 5px #666);
-  display: flex;
-  flex-direction: column;
 }
 
 .modal__control {

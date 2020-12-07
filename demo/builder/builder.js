@@ -24,6 +24,7 @@ const DOM = {
   overlay: {
     $overlay: $('#overlay'),
     $scrim: $('#overlay .scrim'),
+    $modal: $('#overlay .modal'),
     $control: $('#overlay .modal__control'),
     control: {
       radio: {
@@ -63,19 +64,18 @@ const DOM = {
     );
   },
 
-  showOverlay() {
+  showOverlay({nearBottom}) {
     DOM.overlay.$overlay.classList.add('overlay--show');
-    setTimeout(() => {
-      DOM.overlay.$overlay.classList.add('overlay--open');
-    }, 0);
+    if (nearBottom) {
+      DOM.overlay.$modal.classList.add('modal--near_bottom');
+    } else {
+      DOM.overlay.$modal.classList.remove('modal--near_bottom');
+    }
   },
 
   hideOverlay() {
     DOM.clearCellSelection();
-    DOM.overlay.$overlay.classList.remove('overlay--open');
-    setTimeout(() => {
-      DOM.overlay.$overlay.classList.remove('overlay--show');
-    }, 150);
+    DOM.overlay.$overlay.classList.remove('overlay--show');
   },
 
   updateOverlayKomas() {
@@ -133,9 +133,12 @@ const DOM = {
 // Initializes board.
 DOM.appendDiv(DOM.board);
 DOM.board.$div.querySelectorAll('.shogi__cell').forEach($cell => {
-  $cell.addEventListener('click', () => {
+  $cell.addEventListener('click', e => {
     DOM.selectCell($cell);
-    DOM.showOverlay();
+
+    const totalHeight = document.documentElement.clientHeight;
+    const nearBottom = (e.clientY / totalHeight) < 0.5;
+    DOM.showOverlay({nearBottom});
   });
 });
 DOM.loadInitialKomas();
