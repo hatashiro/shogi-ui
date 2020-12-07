@@ -30,7 +30,7 @@ const DOM = {
         const position = {suji, dan};
         const koma = Model.board[suji][dan];
         if (koma) {
-          const $koma = Shogi.komaSVG(koma.type, {sente: koma.sente});
+          const $koma = Shogi.komaDiv(koma.type, {sente: koma.sente});
           Shogi.putKomaAt(DOM.board.$div, $koma, position);
         } else {
           Shogi.removeKomaAt(DOM.board.$div, position);

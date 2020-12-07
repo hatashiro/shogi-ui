@@ -46,7 +46,7 @@ const DOM = {
         const position = {suji, dan};
         const koma = Model.board[suji][dan];
         if (koma) {
-          const $koma = Shogi.komaSVG(koma.type, {sente: koma.sente});
+          const $koma = Shogi.komaDiv(koma.type, {sente: koma.sente});
           Shogi.putKomaAt(DOM.board.$div, $koma, position);
         } else {
           Shogi.removeKomaAt(DOM.board.$div, position);
@@ -91,7 +91,7 @@ const DOM = {
     if (!sente) komas.splice(0, 1, '玉');
 
     for (const type of komas) {
-      const $koma = Shogi.komaSVG(type, {sente});
+      const $koma = Shogi.komaDiv(type, {sente});
       $koma.addEventListener('click', () => {
         DOM.putKomaAtCurrentPosition(type, {sente});
         DOM.hideOverlay();
@@ -115,7 +115,7 @@ const DOM = {
   putKomaAtCurrentPosition(type, {sente}) {
     if (!Model.selectedPosition) return;
 
-    $newKoma = Shogi.komaSVG(type, {sente});
+    $newKoma = Shogi.komaDiv(type, {sente});
     Shogi.putKomaAt(DOM.board.$div, $newKoma, Model.selectedPosition);
     Model.addKomaAt(type, {sente}, Model.selectedPosition);
     Hash.update();
